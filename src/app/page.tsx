@@ -5,6 +5,8 @@ import "../styles/demo-page.module.scss";
 
 import classNames from "classnames";
 import useDemoKrpano from "../hooks/useDemoKrpano";
+import { Button } from "antd";
+import { LegacyRef } from "react";
 
 const LoadingPage = ({ isFadingout = false }) => {
   const wrapperClasses = classNames("loading-page", {
@@ -30,34 +32,30 @@ export default function Home() {
   } = useDemoKrpano();
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      {showLoadingPage && <LoadingPage isFadingout={isLoaded} />}
+    <main className="flex min-h-screen flex-col items-center justify-between">
+      <div className="h-full w-full">
+        <div className="h-ful w-ful">
+          <div ref={containerRef as LegacyRef<HTMLDivElement>} />
+        </div>
 
-      <div className="demo-page">
-        <div ref={containerRef} />
-        <div className="menu">
-          <a href="#">Back to Home</a>
-          <button
+        <div className="absolute top-0 left-0 w-full h-20 bg-black/50 text-white">
+          <a href="#">{"<-Back to Home"}</a>
+          <Button
+            type="primary"
             onClick={toggleLockView}
-            className={isLocked ? "disable" : ""}
+            className={isLocked ? "bg-yellow" : "bg-green"}
           >
             Toggle Lock View
-          </button>
-          <button
+          </Button>
+          <Button
+            type="primary"
             onClick={toggleHideSpots}
-            className={isHideSpots ? "disable" : ""}
+            className={isHideSpots ? "bg-yellow" : "bg-green"}
           >
             Toggle Hide Spots
-          </button>
+          </Button>
           <div className="scene-name">Current Scene Name: {currentScene}</div>
         </div>
-        <a
-          className="github-link"
-          href="https://github.com/shinenic/react-krpano-hooks"
-          target="_blank"
-        >
-          {/* <img src={GithubLogo} alt="github" /> */}
-        </a>
       </div>
     </main>
   );

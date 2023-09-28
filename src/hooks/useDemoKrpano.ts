@@ -1,11 +1,11 @@
-import { useEffect, useState } from 'react'
-import useKrpano from 'react-krpano-hooks'
+import { useEffect, useState } from "react";
+import useKrpano from "react-krpano-hooks";
 
 const useDemoKrpano = () => {
-  const [showLoadingPage, setShowLoadingPage] = useState(true)
-  const [isLocked, setLockView] = useState(false)
-  const [isHideSpots, setHideSpots] = useState(false)
-  const [currentScene, setCurrentScene] = useState('')
+  const [showLoadingPage, setShowLoadingPage] = useState(true);
+  const [isLocked, setLockView] = useState(false);
+  const [isHideSpots, setHideSpots] = useState(false);
+  const [currentScene, setCurrentScene] = useState("");
   const {
     containerRef,
     krpanoState: { isLoaded },
@@ -15,42 +15,42 @@ const useDemoKrpano = () => {
   } = useKrpano({
     globalFunctions: {
       logScene: (scene) => {
-        setCurrentScene(scene)
+        setCurrentScene(scene);
       },
     },
-  })
+  });
 
   // Debounce hide loading page
   useEffect(() => {
     if (isLoaded) {
       setTimeout(() => {
-        setShowLoadingPage(false)
-      }, 1000)
+        setShowLoadingPage(false);
+      }, 1000);
     }
-  }, [isLoaded])
+  }, [isLoaded]);
 
   useEffect(() => {
-    if (!isLoaded) return
+    if (!isLoaded) return;
 
     if (isLocked) {
-      lockView()
+      lockView();
     } else {
-      unlockView()
+      unlockView();
     }
-  }, [isLocked]) // eslint-disable-line
+  }, [isLocked]); // eslint-disable-line
 
   useEffect(() => {
-    if (!isLoaded) return
+    if (!isLoaded) return;
 
     if (isHideSpots) {
-      callKrpano('toggleHotspotVisibility(0)')
+      callKrpano("toggleHotspotVisibility(0)");
     } else {
-      callKrpano('toggleHotspotVisibility(1)')
+      callKrpano("toggleHotspotVisibility(1)");
     }
-  }, [isHideSpots]) // eslint-disable-line
-  
-  const toggleLockView = () => setLockView(prev => !prev);
-  const toggleHideSpots = () => setHideSpots(prev => !prev);
+  }, [isHideSpots]); // eslint-disable-line
+
+  const toggleLockView = () => setLockView((prev) => !prev);
+  const toggleHideSpots = () => setHideSpots((prev) => !prev);
 
   return {
     showLoadingPage,
@@ -61,7 +61,7 @@ const useDemoKrpano = () => {
     toggleHideSpots,
     isHideSpots,
     currentScene,
-  }
-}
+  };
+};
 
-export default useDemoKrpano
+export default useDemoKrpano;
